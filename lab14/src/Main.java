@@ -55,9 +55,9 @@ public class Main {
 
         if (!postalCodePattern.matcher(postalCode).find()) throw new Exception("Invalid postal code.");
 
-        float floorSpace = Float.parseFloat(getInput(scanner, "Enter floor space: "));
-        float plotArea = Float.parseFloat(getInput(scanner, "Enter plot area: "));
-        float price = Float.parseFloat(getInput(scanner, "Enter price: "));
+        double floorSpace = Double.parseDouble(getInput(scanner, "Enter floor space: "));
+        double plotArea = Double.parseDouble(getInput(scanner, "Enter plot area: "));
+        double price = Double.parseDouble(getInput(scanner, "Enter price: "));
         String unformattedEndDate = getInput(scanner, "Enter start date (DD/MM/YYYY format): ");
         LocalDate startDate = LocalDate.parse(unformattedEndDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
@@ -78,10 +78,10 @@ public class Main {
 
         if (!postalCodePattern.matcher(postalCode).find()) throw new Exception("Invalid postal code.");
 
-        float floorSpace = Float.parseFloat(getInput(scanner, "Enter floor space: "));
+        double floorSpace = Double.parseDouble(getInput(scanner, "Enter floor space: "));
         int floorNumber = Integer.parseInt(getInput(scanner, "Enter floor number: "));
         int flatNumber = Integer.parseInt(getInput(scanner, "Enter flat number: "));
-        float price = Float.parseFloat(getInput(scanner, "Enter price: "));
+        double price = Double.parseDouble(getInput(scanner, "Enter price: "));
         String unformattedEndDate = getInput(scanner, "Enter start date (DD/MM/YYYY format): ");
         LocalDate startDate = LocalDate.parse(unformattedEndDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
@@ -115,7 +115,7 @@ public class Main {
     public static void printCurrentHouseOffersWithCityAndArea(SaleOffers saleOffers, Scanner scanner) {
         LocalDate currentDate = LocalDate.now();
         String city = getInput(scanner, "Enter city: ");
-        float floorArea = Float.parseFloat(getInput(scanner, "Enter floor area: "));
+        double floorArea = Double.parseDouble(getInput(scanner, "Enter floor area: "));
 
         ArrayList<Property> offers = saleOffers.filterOffers(offer -> offer instanceof House &&
                 !offer.getStartDate().isAfter(currentDate) &&
@@ -129,12 +129,12 @@ public class Main {
     public static void printCurrentApartmentOffersWithCityPriceAndFloor(SaleOffers saleOffers, Scanner scanner) {
         LocalDate currentDate = LocalDate.now();
         String city = getInput(scanner, "Enter city: ");
-        float price = Float.parseFloat(getInput(scanner, "Enter price: "));
+        double price = Double.parseDouble(getInput(scanner, "Enter price: "));
         int floorNumber = Integer.parseInt(getInput(scanner, "Enter floor number: "));
 
         ArrayList<Property> offers = saleOffers.filterOffers(offer -> offer instanceof Apartment &&
                 !offer.getStartDate().isAfter(currentDate) &&
-                offer.getFloorSpace() <= price &&
+                offer.getPrice() <= price &&
                 offer.getCity().equals(city) &&
                 ((Apartment) offer).getFloorNumber() >= floorNumber);
 
@@ -159,9 +159,31 @@ public class Main {
 
         return true;
     }
+
+    public static void addSampleOffers(SaleOffers saleOffers) {
+        saleOffers.addPropertySaleOffer(new House("gdansk", "kolobrzeska", "13f", "80-234", 160.80, 650000.99, LocalDate.of(2023, 3, 15), 450.99));
+        saleOffers.addPropertySaleOffer(new House("gdynia", "morska", "28", "80-515", 3000, 1250000.89, LocalDate.of(2023, 4, 8), 5000));
+        saleOffers.addPropertySaleOffer(new House("gdansk", "aleja grunwaldzka", "64", "82-111", 800, 800000, LocalDate.of(2023, 6, 22), 900));
+        saleOffers.addPropertySaleOffer(new House("gdansk", "podwale staromiejskie", "47", "88-876", 280, 309000, LocalDate.of(2023, 7, 1), 600));
+        saleOffers.addPropertySaleOffer(new House("sopot", "wladyslawa jagielly", "18", "83-333", 373.45, 725345, LocalDate.of(2023, 5, 24), 808.88));
+        saleOffers.addPropertySaleOffer(new House("gdynia", "brzegowa", "1337", "89-999", 129.95, 260000, LocalDate.of(2023, 5, 22), 1337));
+
+        saleOffers.addPropertySaleOffer(new Apartment("gdansk", "strazacka", "512f", "80-234", 63.889, 632000, LocalDate.of(2023, 5, 12), 17, 3));
+        saleOffers.addPropertySaleOffer(new Apartment("gdansk", "kolobrzeska", "612", "82-222", 32.19, 420000, LocalDate.of(2023, 5, 30), 9, 4));
+        saleOffers.addPropertySaleOffer(new Apartment("sopot", "aleja grunwaldzka", "123", "82-111", 55.18, 550000.88, LocalDate.of(2023, 3, 12), 10, 2));
+        saleOffers.addPropertySaleOffer(new Apartment("gdansk", "koscielna", "56g", "80-234", 80, 720123.23, LocalDate.of(2023, 4, 12), 12, 7));
+        saleOffers.addPropertySaleOffer(new Apartment("sopot", "wladyslawa jagielly", "10a", "83-333", 27, 362170, LocalDate.of(2023, 7, 12), 33, 8));
+        saleOffers.addPropertySaleOffer(new Apartment("sopot", "dworcowa", "89", "89-999", 42, 515000, LocalDate.of(2023, 5, 24), 42, 2));
+        saleOffers.addPropertySaleOffer(new Apartment("gdynia", "morska", "15b", "82-222", 55, 619999, LocalDate.of(2023, 5, 25), 51, 3));
+        saleOffers.addPropertySaleOffer(new Apartment("gdynia", "bazyliowa", "89", "82-111", 97, 820555, LocalDate.of(2023, 2, 17), 18, 4));
+        saleOffers.addPropertySaleOffer(new Apartment("gdynia", "jasminowa", "32", "89-999", 122, 1200900, LocalDate.of(2023, 6, 10), 12, 5));
+
+    }
     public static void main(String[] args) {
         System.out.println("***** Property sale offers *****");
         SaleOffers saleOffers = new SaleOffers();
+
+        addSampleOffers(saleOffers);
 
         Scanner scanner = new Scanner(System.in);
         int option;

@@ -9,8 +9,8 @@ final public class Apartment extends Property {
                      String street,
                      String houseNumber,
                      String postalCode,
-                     float floorSpace,
-                     float price,
+                     double floorSpace,
+                     double price,
                      LocalDate startDate,
                      int flatNumber,
                      int floorNumber) {

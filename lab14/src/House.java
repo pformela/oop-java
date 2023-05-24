@@ -2,21 +2,21 @@ import java.time.LocalDate;
 
 final public class House extends Property {
 
-    private float plotArea;
+    private double plotArea;
 
     public House(String city,
                  String street,
                  String houseNumber,
                  String postalCode,
-                 float floorSpace,
-                 float price,
+                 double floorSpace,
+                 double price,
                  LocalDate startDate,
-                 float plotArea) {
+                 double plotArea) {
         super(city, street, houseNumber, postalCode, floorSpace, price, startDate);
         this.plotArea = plotArea;
     }
 
-    public float getPlotArea() { return this.plotArea; }
+    public double getPlotArea() { return this.plotArea; }
 
     public void setPlotArea(float newPlotArea) {
         this.plotArea = newPlotArea;

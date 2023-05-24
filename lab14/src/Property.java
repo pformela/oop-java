@@ -6,16 +6,16 @@ sealed public abstract class Property permits House, Apartment {
     private String street;
     private String houseNumber;
     private String postalCode;
-    private float floorSpace;
-    private float price;
+    private double floorSpace;
+    private double price;
     private LocalDate startDate;
 
     public Property(String city,
                     String street,
                     String houseNumber,
                     String postalCode,
-                    float floorSpace,
-                    float price,
+                    double floorSpace,
+                    double price,
                     LocalDate startDate) {
         this.city = city;
         this.street = street;
@@ -40,9 +40,9 @@ sealed public abstract class Property permits House, Apartment {
 
     public String getPostalCode() { return this.postalCode; }
 
-    public float getFloorSpace() { return this.floorSpace; }
+    public double getFloorSpace() { return this.floorSpace; }
 
-    public float getPrice() { return this.price; }
+    public double getPrice() { return this.price; }
 
     public LocalDate getStartDate() { return this.startDate; }
 
